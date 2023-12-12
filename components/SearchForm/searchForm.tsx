@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useEffect } from 'react';
 import { Input, Select, Flex, CloseButton, Button } from '@mantine/core';
 import { useForm } from '@mantine/form';

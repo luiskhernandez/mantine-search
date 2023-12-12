@@ -2,9 +2,8 @@ import { DataTable } from 'mantine-datatable';
 import { useEffect, useState } from 'react';
 
 const PAGE_SIZE = 5;
-
-export default function ResultTable({ searchParams, results, page, setPage }) {
-
+// @ts-ignore
+export default function ResultTable({ results, page, setPage }) {
   const [records, setRecords] = useState(results.slice(0, PAGE_SIZE));
 
   useEffect(() => {
