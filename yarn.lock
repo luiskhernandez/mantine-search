@@ -2263,6 +2263,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mantine/form@npm:^7.3.1":
+  version: 7.3.1
+  resolution: "@mantine/form@npm:7.3.1"
+  dependencies:
+    fast-deep-equal: "npm:^3.1.3"
+    klona: "npm:^2.0.6"
+  peerDependencies:
+    react: ^18.2.0
+  checksum: d74a04a4b89377b3ecc18772fecc68d8cc5ec7ff111841cfca60c947e1d692550fc010e07380072045171987b301ac3e4625716f69e2c17ec70c4baef02ab821
+  languageName: node
+  linkType: hard
+
 "@mantine/hooks@npm:7.3.0":
   version: 7.3.0
   resolution: "@mantine/hooks@npm:7.3.0"
@@ -4361,6 +4373,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/query-core@npm:5.13.4":
+  version: 5.13.4
+  resolution: "@tanstack/query-core@npm:5.13.4"
+  checksum: 52158a21f82b79afed740339d57886a4b98227d0853bf547d76a54832cb297d8d50d078ab8e62809810b98c017f98fc4a2492dc2d34e71a4fac15eca9681d0b3
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^5.13.4":
+  version: 5.13.4
+  resolution: "@tanstack/react-query@npm:5.13.4"
+  dependencies:
+    "@tanstack/query-core": "npm:5.13.4"
+  peerDependencies:
+    react: ^18.0.0
+  checksum: 626dd2ea2b87d88629423b3d0fe9c971bb6d58cbeb157c8a0f01b21acb5563a99d81d2eaeb5f800e4e9a4b56ce7426941e6ddf6fc3d8a60ba46e3e9673844441
+  languageName: node
+  linkType: hard
+
 "@testing-library/dom@npm:^9.0.0, @testing-library/dom@npm:^9.3.3":
   version: 9.3.3
   resolution: "@testing-library/dom@npm:9.3.3"
@@ -5825,6 +5855,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axios@npm:^1.6.2":
+  version: 1.6.2
+  resolution: "axios@npm:1.6.2"
+  dependencies:
+    follow-redirects: "npm:^1.15.0"
+    form-data: "npm:^4.0.0"
+    proxy-from-env: "npm:^1.1.0"
+  checksum: 9b77e030e85e4f9cbcba7bb52fbff67d6ce906c92d213e0bd932346a50140faf83733bf786f55bd58301bd92f9973885c7b87d6348023e10f7eaf286d0791a1d
+  languageName: node
+  linkType: hard
+
 "axobject-query@npm:^3.2.1":
   version: 3.2.1
   resolution: "axobject-query@npm:3.2.1"
@@ -6643,7 +6684,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:2.0.0":
+"clsx@npm:2.0.0, clsx@npm:^2.0.0":
   version: 2.0.0
   resolution: "clsx@npm:2.0.0"
   checksum: c09f43b3144a0b7826b6b11b6a111b2c7440831004eecc02d333533c5e58ef0aa5f2dce071d3b25fbb8c8ea97b45df96c74bcc1d51c8c2027eb981931107b0cd
@@ -8802,6 +8843,16 @@ __metadata:
   version: 0.220.1
   resolution: "flow-parser@npm:0.220.1"
   checksum: 0147cd2f09657f356f611ecb0d401c8554806bc22c39403f9353e6ddf3f96ce983dfa5bf84fe8b252e2b2e7d42fec4259f47e1bff6cefce02e600a40973500ab
+  languageName: node
+  linkType: hard
+
+"follow-redirects@npm:^1.15.0":
+  version: 1.15.3
+  resolution: "follow-redirects@npm:1.15.3"
+  peerDependenciesMeta:
+    debug:
+      optional: true
+  checksum: 915a2cf22e667bdf47b1a43cc6b7dce14d95039e9bbf9a24d0e739abfbdfa00077dd43c86d4a7a19efefcc7a99af144920a175eedc3888d268af5df67c272ee5
   languageName: node
   linkType: hard
 
@@ -11263,12 +11314,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mantine-datatable@npm:^7.3.0":
+  version: 7.3.0
+  resolution: "mantine-datatable@npm:7.3.0"
+  peerDependencies:
+    "@mantine/core": ">=7"
+    "@mantine/hooks": ">=7"
+    clsx: ">=2"
+    react: ">=18.2"
+  checksum: 4d5120282c79da2ddfb9982560a1ca7b7a0fc978df40e90b8ec098c169a63e43e6dac9830f7d2c33e3ef4801fac4814c9f69da09db8948ce40c2e2eb1d6913ce
+  languageName: node
+  linkType: hard
+
 "mantine-next-template@workspace:.":
   version: 0.0.0-use.local
   resolution: "mantine-next-template@workspace:."
   dependencies:
     "@babel/core": "npm:^7.23.2"
     "@mantine/core": "npm:7.3.0"
+    "@mantine/form": "npm:^7.3.1"
     "@mantine/hooks": "npm:7.3.0"
     "@next/bundle-analyzer": "npm:^14.0.1"
     "@next/eslint-plugin-next": "npm:^14.0.1"
@@ -11279,6 +11343,7 @@ __metadata:
     "@storybook/react": "npm:^7.5.2"
     "@storybook/testing-library": "npm:^0.2.2"
     "@tabler/icons-react": "npm:^2.40.0"
+    "@tanstack/react-query": "npm:^5.13.4"
     "@testing-library/dom": "npm:^9.3.3"
     "@testing-library/jest-dom": "npm:^6.1.4"
     "@testing-library/react": "npm:^14.0.0"
@@ -11288,7 +11353,9 @@ __metadata:
     "@types/react": "npm:18.2.35"
     "@typescript-eslint/eslint-plugin": "npm:^6.9.1"
     "@typescript-eslint/parser": "npm:^6.9.1"
+    axios: "npm:^1.6.2"
     babel-loader: "npm:^9.1.3"
+    clsx: "npm:^2.0.0"
     eslint: "npm:^8.53.0"
     eslint-config-airbnb: "npm:19.0.4"
     eslint-config-airbnb-typescript: "npm:^17.1.0"
@@ -11301,6 +11368,7 @@ __metadata:
     eslint-plugin-testing-library: "npm:^6.1.0"
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
+    mantine-datatable: "npm:^7.3.0"
     next: "npm:14.0.1"
     postcss: "npm:^8.4.31"
     postcss-preset-mantine: "npm:1.11.1"
@@ -12883,7 +12951,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"proxy-from-env@npm:^1.0.0":
+"proxy-from-env@npm:^1.0.0, proxy-from-env@npm:^1.1.0":
   version: 1.1.0
   resolution: "proxy-from-env@npm:1.1.0"
   checksum: fe7dd8b1bdbbbea18d1459107729c3e4a2243ca870d26d34c2c1bcd3e4425b7bcc5112362df2d93cc7fb9746f6142b5e272fd1cc5c86ddf8580175186f6ad42b
