@@ -40,11 +40,9 @@ function filterByKeys(array, searchKeys) {
   });
 }
 
-const PAGE_SIZE = 5;
-
-export function fakeAjaxRequest(_url, page, searchParamas) {
-  const from = (page - 1) * PAGE_SIZE;
-  const to = from + PAGE_SIZE;
+export function fakeAjaxRequest(_url, page, pageSize, searchParamas) {
+  const from = (page - 1) * pageSize;
+  const to = from + pageSize;
   return new Promise((resolve) => {
     const delay = Math.random() * 2000;
     const filetedData = filterByKeys(teams, searchParamas);

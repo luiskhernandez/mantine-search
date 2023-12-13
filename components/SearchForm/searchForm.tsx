@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Input, Select, Flex, CloseButton, Button } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { useQuery, keepPreviousData } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useDebouncedValue } from '@mantine/hooks';
 import { fakeAjaxRequest } from 'helpers/utils';
 
@@ -25,8 +25,8 @@ function SearchForm({ children }) {
   const [debouncedValues] = useDebouncedValue(form.values, 500);
 
   const { isPending, isError, error, data } = useQuery({
-    queryKey: ['items', page, { ...debouncedValues }],
-    queryFn: () => fakeAjaxRequest('/fake-url', page, form.values),
+    queryKey: ['items', page, pageSize, { ...debouncedValues }],
+    queryFn: () => fakeAjaxRequest('/fake-url', page, pageSize, form.values),
   });
 
   const handleReset = () => {

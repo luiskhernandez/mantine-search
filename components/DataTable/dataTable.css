@@ -35,3 +35,10 @@
 .mantine-datatable-pagination-pages  > div > *:last-child {
   display: block;
 }
+
+.mantine-datatable-row td .js-add-to-iv {
+  pointer-events: none;
+}
+.mantine-datatable-row[data-selected="true"] td .js-add-to-iv { 
+  pointer-events: auto;
+}

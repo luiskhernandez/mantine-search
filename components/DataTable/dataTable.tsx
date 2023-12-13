@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { DataTable } from 'mantine-datatable';
-import { Checkbox, Container, Flex, Input, Select, NumberInput } from '@mantine/core';
+import { Checkbox, Container, Flex, Select, NumberInput } from '@mantine/core';
 import { useState } from 'react';
 
 const PAGE_SIZES = [5, 10, 15, 20];
@@ -15,6 +15,7 @@ export default function ResultTable({
   setSelectedRecords,
   pageSize = 5,
   setPageSize,
+  updateFrequency,
 }) {
   return (
     <DataTable
@@ -34,13 +35,13 @@ export default function ResultTable({
           accessor: 'frequency',
           render: (row) => (
             <Select
-              style={{ flex: '1 1 0%;' }}
               label="Option"
               value={row.frequency}
               data={['A', 'B', 'C', 'D', 'E']}
               placeholder="Select"
               onChange={(value) => {
-                console.log('cambiar a ', value, row);
+                console.log('value', value);
+                updateFrequency(row.teamId, value);
               }}
             />
           ),
@@ -50,7 +51,7 @@ export default function ResultTable({
           render: (row) => {
             const [state, setState] = useState(false);
             return (
-              <Container w={200}>
+              <Container w={200} className="js-add-to-iv">
                 <Flex gap={8} align="center">
                   <Checkbox
                     value={state}
@@ -59,13 +60,13 @@ export default function ResultTable({
                     }}
                   />
                   {state && (
-                      <NumberInput
-                        width={30}
-                        variant="filled"
-                        onChange={(value) => {
-                          console.log('cambiar a ', value, row);
-                        }}
-                      />
+                    <NumberInput
+                      width={30}
+                      variant="filled"
+                      onChange={(value) => {
+                        console.log('cambiar a ', value, row);
+                      }}
+                    />
                   )}
                 </Flex>
               </Container>
