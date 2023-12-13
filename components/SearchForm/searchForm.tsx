@@ -20,6 +20,7 @@ function SearchForm({ children }) {
   });
 
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
 
   const [debouncedValues] = useDebouncedValue(form.values, 500);
 
@@ -110,8 +111,10 @@ function SearchForm({ children }) {
               results: data && data.results,
               page,
               setPage,
-              totalRecords:data && data.totalRecords,
+              totalRecords: data && data.totalRecords,
               fetching: isPending,
+              pageSize,
+              setPageSize,
             })
           )}
         </Flex>

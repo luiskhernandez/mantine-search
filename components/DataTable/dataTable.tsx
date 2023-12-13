@@ -3,7 +3,7 @@ import { DataTable } from 'mantine-datatable';
 import { Checkbox, Container, Flex, Input, Select } from '@mantine/core';
 import { useState } from 'react';
 
-const PAGE_SIZE = 5;
+const PAGE_SIZES = [5, 10, 15, 20];
 
 export default function ResultTable({
   fetching = false,
@@ -13,11 +13,12 @@ export default function ResultTable({
   totalRecords,
   selectedRecords,
   setSelectedRecords,
+  pageSize = 5,
+  setPageSize,
 }) {
   return (
     <DataTable
       style={{ width: '100%' }}
-      withTableBorder
       records={results}
       minHeight={180}
       columns={[
@@ -63,7 +64,9 @@ export default function ResultTable({
       selectedRecords={selectedRecords}
       onSelectedRecordsChange={setSelectedRecords}
       totalRecords={totalRecords}
-      recordsPerPage={PAGE_SIZE}
+      recordsPerPage={pageSize}
+      recordsPerPageOptions={PAGE_SIZES}
+      onRecordsPerPageChange={setPageSize}
       page={page}
       fetching={fetching}
       idAccessor="teamId"

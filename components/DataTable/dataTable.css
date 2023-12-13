@@ -1,0 +1,13 @@
+.mantine-datatable-pagination-pages > div > * {
+  display: none;
+}
+
+/* Muestra el primer hijo */
+.mantine-datatable-pagination-pages > div > *:first-child {
+  display: block;
+}
+
+/* Muestra el último hijo */
+.mantine-datatable-pagination-pages  > div > *:last-child {
+  display: block;
+}
