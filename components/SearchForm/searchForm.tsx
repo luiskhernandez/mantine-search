@@ -26,7 +26,6 @@ function SearchForm({ children }) {
   const { isPending, isError, error, data } = useQuery({
     queryKey: ['items', page, { ...debouncedValues }],
     queryFn: () => fakeAjaxRequest('/fake-url', page, form.values),
-    placeholderData: keepPreviousData,
   });
 
   const handleReset = () => {
@@ -104,16 +103,15 @@ function SearchForm({ children }) {
 
         {/* Third Row */}
         <Flex>
-          {isPending ? (
-            <div>Loading...</div>
-          ) : isError ? (
+          {isError ? (
             <div>Error: {error.message}</div>
           ) : (
             React.cloneElement(children, {
-              results: data.results,
+              results: data && data.results,
               page,
               setPage,
-              totalRecords: data.totalRecords,
+              totalRecords:data && data.totalRecords,
+              fetching: isPending,
             })
           )}
         </Flex>

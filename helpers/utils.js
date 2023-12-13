@@ -46,11 +46,11 @@ export function fakeAjaxRequest(_url, page, searchParamas) {
   const from = (page - 1) * PAGE_SIZE;
   const to = from + PAGE_SIZE;
   return new Promise((resolve) => {
-    const delay = Math.random() * 1000;
+    const delay = Math.random() * 2000;
     const filetedData = filterByKeys(teams, searchParamas);
 
     setTimeout(() => {
-      resolve({ results: filetedData.slice(from, to), totalRecords: teams.length });
+      resolve({ results: filetedData.slice(from, to), totalRecords: filetedData.length });
     }, delay);
   });
 }

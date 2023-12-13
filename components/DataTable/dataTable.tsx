@@ -1,14 +1,24 @@
+// @ts-nocheck
 import { DataTable } from 'mantine-datatable';
+import { Select } from '@mantine/core';
 
 const PAGE_SIZE = 5;
 
-// @ts-ignore
-export default function ResultTable({ results, page, setPage, totalRecords, selectedRecords, setSelectedRecords }) {
+export default function ResultTable({
+  fetching = false,
+  results,
+  page,
+  setPage,
+  totalRecords,
+  selectedRecords,
+  setSelectedRecords,
+}) {
   return (
     <DataTable
       style={{ width: '100%' }}
       withTableBorder
       records={results}
+      minHeight={180}
       columns={[
         { accessor: 'teamId', width: '100%' },
         { accessor: 'abbreviation', width: 100 },
@@ -18,12 +28,28 @@ export default function ResultTable({ results, page, setPage, totalRecords, sele
           accessor: 'location',
           render: ({ location }) => location,
         },
+        {
+          accessor: 'frequency',
+          render: (row) => {
+            return (<Select
+              style={{ flex: '1 1 0%;' }}
+              label="Option"
+              value={row.frequency}
+              data={['A', 'B', 'C', 'D', 'E']}
+              placeholder="Select"
+              onChange={(value) => {
+               console.log("cambiar a ", value, row)
+              }}
+            />);
+          },
+        },
       ]}
       selectedRecords={selectedRecords}
       onSelectedRecordsChange={setSelectedRecords}
       totalRecords={totalRecords}
       recordsPerPage={PAGE_SIZE}
       page={page}
+      fetching={fetching}
       idAccessor="teamId"
       onPageChange={(p) => setPage(p)}
       // 👇 uncomment the next line to use a custom pagination size

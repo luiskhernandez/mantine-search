@@ -214,6 +214,7 @@ function duplicateObjectsWithKey(array) {
   return array.flatMap((obj) => {
     return Array.from({ length: 5 }, (_, index) => ({
       ...obj,
+      frequency: 'A',
       teamId: obj.teamId + '-' + index,
       duplicated: index + '',
     }));
