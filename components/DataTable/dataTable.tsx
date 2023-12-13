@@ -1,36 +1,30 @@
 import { DataTable } from 'mantine-datatable';
-import { useEffect, useState } from 'react';
 
 const PAGE_SIZE = 5;
+
 // @ts-ignore
-export default function ResultTable({ results, page, setPage }) {
-  const [records, setRecords] = useState(results.slice(0, PAGE_SIZE));
-
-  useEffect(() => {
-    const from = (page - 1) * PAGE_SIZE;
-    const to = from + PAGE_SIZE;
-    setRecords(results.slice(from, to));
-  }, [page]);
-
+export default function ResultTable({ results, page, setPage, totalRecords, selectedRecords, setSelectedRecords }) {
   return (
     <DataTable
-      width={100}
+      style={{ width: '100%' }}
       withTableBorder
-      records={records}
+      records={results}
       columns={[
+        { accessor: 'teamId', width: '100%' },
         { accessor: 'abbreviation', width: 100 },
-        { accessor: 'teamName', width: 100 },
         { accessor: 'simpleName', width: '100%' },
+        { accessor: 'duplicated', width: '100%' },
         {
           accessor: 'location',
-          textAlign: 'right',
-          width: 120,
           render: ({ location }) => location,
         },
       ]}
-      totalRecords={results.length}
+      selectedRecords={selectedRecords}
+      onSelectedRecordsChange={setSelectedRecords}
+      totalRecords={totalRecords}
       recordsPerPage={PAGE_SIZE}
       page={page}
+      idAccessor="teamId"
       onPageChange={(p) => setPage(p)}
       // 👇 uncomment the next line to use a custom pagination size
       // paginationSize="md"

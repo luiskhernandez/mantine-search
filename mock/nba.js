@@ -210,5 +210,14 @@ const teams = [
     "location": "Washington"
   }
 ]
-
-export default teams;
+function duplicateObjectsWithKey(array) {
+  return array.flatMap((obj) => {
+    return Array.from({ length: 5 }, (_, index) => ({
+      ...obj,
+      teamId: obj.teamId + '-' + index,
+      duplicated: index + '',
+    }));
+  });
+}
+const duplicatedTeams = duplicateObjectsWithKey(teams);
+export default duplicatedTeams;

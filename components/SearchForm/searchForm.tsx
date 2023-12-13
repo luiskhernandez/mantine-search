@@ -1,31 +1,17 @@
 // @ts-nocheck
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Input, Select, Flex, CloseButton, Button } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
-import axios from 'axios';
 import { useDebouncedValue } from '@mantine/hooks';
-
-function jsonToQueryString(json) {
-  return (
-    '?' +
-    Object.entries(json)
-      .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
-      .join('&')
-  );
-}
-
-const fetchItems = async (page = 1, params) => {
-  const response = await axios.get(`/api/items${jsonToQueryString(params)}&page=${page}`);
-  return response.data;
-};
+import { fakeAjaxRequest } from 'helpers/utils';
 
 const initialValues = {
   option: null,
-  option1: null,
-  option2: null,
-  filter: '',
-  filter2: '',
+  abbreviation: null,
+  duplicated: null,
+  simpleName: '',
+  location: '',
 };
 
 function SearchForm({ children }) {
@@ -35,24 +21,18 @@ function SearchForm({ children }) {
 
   const [page, setPage] = useState(1);
 
-  const { isPending, isError, error, data, refetch } = useQuery({
-    queryKey: ['items', page],
-    queryFn: () => fetchItems(page, form.values),
+  const [debouncedValues] = useDebouncedValue(form.values, 500);
+
+  const { isPending, isError, error, data } = useQuery({
+    queryKey: ['items', page, { ...debouncedValues }],
+    queryFn: () => fakeAjaxRequest('/fake-url', page, form.values),
     placeholderData: keepPreviousData,
   });
 
-  const [debouncedValues] = useDebouncedValue(form.values, 500);
-
-  useEffect(() => {
-    refetch();
-  }, [debouncedValues]);
-
   const handleReset = () => {
     form.reset();
+    setPage(1);
   };
-
-  if (isPending) return <div>Loading...</div>;
-  if (isError) return <div>Error!{JSON.stringify(error)}</div>;
 
   return (
     <form
@@ -60,9 +40,9 @@ function SearchForm({ children }) {
         console.log('submit', values);
       })}
     >
-      <Flex width="100%" direction={'column'} gap={'md'}>
+      <Flex width="100%" direction="column" gap="md">
         {/* First Row */}
-        <Flex gap={'md'} justify={'center'} align="flex-end">
+        <Flex gap="md" justify="center" align="flex-end">
           <Select
             style={{ flex: '1 1 0%;' }}
             label="Option"
@@ -72,17 +52,17 @@ function SearchForm({ children }) {
           />
           <Select
             style={{ flex: '1 1 0%;' }}
-            label="Option 2"
-            data={['Option X', 'Option Y', 'Option Z']}
+            label="Abbrevation"
+            data={['Chi', 'Phi', 'UTA']}
             placeholder="Select"
-            {...form.getInputProps('option1')}
+            {...form.getInputProps('abbreviation')}
           />
           <Select
             style={{ flex: '1 1 0%;' }}
-            label="Option 3"
-            data={['Option P', 'Option Q', 'Option R']}
+            label="Duplicated"
+            data={['0', '1', '2', '3', '4', '5']}
             placeholder="Select"
-            {...form.getInputProps('option2')}
+            {...form.getInputProps('duplicated')}
           />
 
           <Button variant="filled" color="red" onClick={handleReset}>
@@ -91,39 +71,52 @@ function SearchForm({ children }) {
         </Flex>
 
         {/* Second Row */}
-        <Flex width="100%" gap="md" justify="center" align={'flex-end'}>
+        <Flex width="100%" gap="md" justify="center" align="flex-end">
           <Input
             style={{ flex: '1 1 0%;' }}
             label="Text Field 1"
-            placeholder="Type here"
+            placeholder="Search Team Name"
             rightSectionPointerEvents="all"
-            {...form.getInputProps('filter')}
+            {...form.getInputProps('simpleName')}
             rightSection={
               <CloseButton
                 aria-label="Clear input"
-                onClick={() => form.setFieldValue('filter', '')}
-                style={{ display: form.values.filter ? undefined : 'none' }}
+                onClick={() => form.setFieldValue('simpleName', '')}
+                style={{ display: form.values.simpleName ? undefined : 'none' }}
               />
             }
           />
           <Input
             style={{ flex: '1 1 0%;' }}
             label="Text Field 2"
-            placeholder="Type here"
+            placeholder="Search Location"
             rightSectionPointerEvents="all"
-            {...form.getInputProps('filter2')}
+            {...form.getInputProps('location')}
             rightSection={
               <CloseButton
                 aria-label="Clear input"
-                onClick={() => form.setFieldValue('filter2', '')}
-                style={{ display: form.values.filter2 ? undefined : 'none' }}
+                onClick={() => form.setFieldValue('location', '')}
+                style={{ display: form.values.location ? undefined : 'none' }}
               />
             }
           />
         </Flex>
 
         {/* Third Row */}
-        <Flex>{React.cloneElement(children, { results: data, page: page, setPage: setPage })}</Flex>
+        <Flex>
+          {isPending ? (
+            <div>Loading...</div>
+          ) : isError ? (
+            <div>Error: {error.message}</div>
+          ) : (
+            React.cloneElement(children, {
+              results: data.results,
+              page,
+              setPage,
+              totalRecords: data.totalRecords,
+            })
+          )}
+        </Flex>
         <Button fullWidth type="submit">
           Submit
         </Button>
