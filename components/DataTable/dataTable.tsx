@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { DataTable } from 'mantine-datatable';
-import { Select } from '@mantine/core';
+import { Checkbox, Container, Flex, Input, Select } from '@mantine/core';
+import { useState } from 'react';
 
 const PAGE_SIZE = 5;
 
@@ -30,17 +31,32 @@ export default function ResultTable({
         },
         {
           accessor: 'frequency',
-          render: (row) => {
-            return (<Select
-              style={{ flex: '1 1 0%;' }}
-              label="Option"
-              value={row.frequency}
-              data={['A', 'B', 'C', 'D', 'E']}
-              placeholder="Select"
-              onChange={(value) => {
-               console.log("cambiar a ", value, row)
+          render: (row) => (<Select
+            style={{ flex: '1 1 0%;' }}
+            label="Option"
+            value={row.frequency}
+            data={['A', 'B', 'C', 'D', 'E']}
+            placeholder="Select"
+            onChange={(value) => {
+               console.log('cambiar a ', value, row);
               }}
-            />);
+          />),
+        },
+        {
+          accessor: 'add to iv?',
+          render: (row) => {
+            const [state, setState] = useState(false);
+            return (
+            <Container w={300}>
+              <Flex gap={8} align="center">
+                <Checkbox value={state} onChange={() => { setState(!state); }} />
+                {state && <Input onChange={(value) => {
+               console.log('cambiar a ', value, row);
+              }}
+                />}
+              </Flex>
+            </Container>
+          );
           },
         },
       ]}
