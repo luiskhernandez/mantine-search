@@ -13,7 +13,7 @@ function MyPage() {
   }
 
   return (
-    <div>
+    <div className="datatable">
       <SearchForm>
         <DataTable setSelectedRecords={setSelectedRecords} selectedRecords={selectedRecords} />
       </SearchForm>
