@@ -18,6 +18,9 @@ export default function ResultTable({
 }) {
   return (
     <DataTable
+      isRecordSelectable={(record) =>
+        !selectedRecords.find((item) => record.teamId === item.teamId)
+      }
       style={{ width: '100%' }}
       records={results}
       minHeight={180}
@@ -49,10 +52,7 @@ export default function ResultTable({
             return (
               <Container w={200} className="js-add-to-iv">
                 <Flex gap={8} align="center">
-                  <Checkbox
-                    checked={checked}
-                    {...form.getInputProps(`adv-${row.teamId}`)}
-                  />
+                  <Checkbox checked={checked} {...form.getInputProps(`adv-${row.teamId}`)} />
                   {checked && (
                     <NumberInput
                       width={30}
