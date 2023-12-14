@@ -50,6 +50,7 @@ export default function ResultTable({
               <Container w={200} className="js-add-to-iv">
                 <Flex gap={8} align="center">
                   <Checkbox
+                    checked={checked}
                     {...form.getInputProps(`adv-${row.teamId}`)}
                   />
                   {checked && (
@@ -74,18 +75,8 @@ export default function ResultTable({
       page={page}
       fetching={fetching}
       idAccessor="teamId"
+      withTableBorder
       onPageChange={(p) => setPage(p)}
-      // 👇 uncomment the next line to use a custom pagination size
-      // paginationSize="md"
-      // 👇 uncomment the next line to use a custom loading text
-      // loadingText="Loading..."
-      // 👇 uncomment the next line to display a custom text when no records were found
-      // noRecordsText="No records found"
-      // 👇 uncomment the next line to use a custom pagination text
-      // paginationText={({ from, to, totalRecords }) => `Records ${from} - ${to} of ${totalRecords}`}
-      // 👇 uncomment the next lines to use custom pagination colors
-      // paginationActiveBackgroundColor="green"
-      // paginationActiveTextColor="#e6e348"
     />
   );
 }

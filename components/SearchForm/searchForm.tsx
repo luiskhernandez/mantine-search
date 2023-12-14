@@ -1,45 +1,10 @@
 // @ts-nocheck
-import React, { useState } from 'react';
+import React from 'react';
 import { Input, Select, Flex, CloseButton, Button } from '@mantine/core';
-import { useForm } from '@mantine/form';
-import { useQuery } from '@tanstack/react-query';
-import { useDebouncedValue } from '@mantine/hooks';
-import { fakeAjaxRequest } from 'helpers/utils';
 
-const initialValues = {
-  option: null,
-  abbreviation: null,
-  duplicated: null,
-  simpleName: '',
-  location: '',
-};
-
-function SearchForm({ children }) {
-  const form = useForm({
-    initialValues,
-  });
-
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
-
-  const [debouncedValues] = useDebouncedValue(form.values, 500);
-
-  const { isPending, isError, error, data } = useQuery({
-    queryKey: ['items', page, pageSize, { ...debouncedValues }],
-    queryFn: () => fakeAjaxRequest('/fake-url', page, pageSize, form.values),
-  });
-
-  const handleReset = () => {
-    form.reset();
-    setPage(1);
-  };
-
+function SearchForm({ form, onReset }) {
   return (
-    <form
-      onSubmit={form.onSubmit((values) => {
-        console.log('submit', values);
-      })}
-    >
+    <form>
       <Flex width="100%" direction="column" gap="md">
         {/* First Row */}
         <Flex gap="md" justify="center" align="flex-end">
@@ -65,7 +30,7 @@ function SearchForm({ children }) {
             {...form.getInputProps('duplicated')}
           />
 
-          <Button variant="filled" color="red" onClick={handleReset}>
+          <Button variant="filled" color="red" onClick={onReset}>
             Reset
           </Button>
         </Flex>
@@ -101,26 +66,6 @@ function SearchForm({ children }) {
             }
           />
         </Flex>
-
-        {/* Third Row */}
-        <Flex>
-          {isError ? (
-            <div>Error: {error.message}</div>
-          ) : (
-            React.cloneElement(children, {
-              results: data && data.results,
-              page,
-              setPage,
-              totalRecords: data && data.totalRecords,
-              fetching: isPending,
-              pageSize,
-              setPageSize,
-            })
-          )}
-        </Flex>
-        <Button fullWidth type="submit">
-          Submit
-        </Button>
       </Flex>
     </form>
   );
