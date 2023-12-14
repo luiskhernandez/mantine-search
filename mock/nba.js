@@ -215,6 +215,7 @@ function duplicateObjectsWithKey(array) {
     return Array.from({ length: 5 }, (_, index) => ({
       ...obj,
       frequency: null,
+      adv: 0,
       teamId: obj.teamId + '-' + index,
       duplicated: index + '',
     }));

@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { DataTable } from 'mantine-datatable';
 import { Checkbox, Container, Flex, Select, NumberInput } from '@mantine/core';
-import { useState } from 'react';
 
 const PAGE_SIZES = [5, 10, 15, 20];
 
@@ -15,7 +14,7 @@ export default function ResultTable({
   setSelectedRecords,
   pageSize = 5,
   setPageSize,
-  updateFrequency,
+  form,
 }) {
   return (
     <DataTable
@@ -36,36 +35,28 @@ export default function ResultTable({
           render: (row) => (
             <Select
               label="Option"
-              value={row.frequency}
               data={['A', 'B', 'C', 'D', 'E']}
               placeholder="Select"
-              onChange={(value) => {
-                console.log('value', value);
-                updateFrequency(row.teamId, value);
-              }}
+              className="js-add-to-iv"
+              {...form.getInputProps(`frequency-${row.teamId}`)}
             />
           ),
         },
         {
           accessor: 'add to iv?',
           render: (row) => {
-            const [state, setState] = useState(false);
+            const checked = form.values[`adv-${row.teamId}`];
             return (
               <Container w={200} className="js-add-to-iv">
                 <Flex gap={8} align="center">
                   <Checkbox
-                    value={state}
-                    onChange={() => {
-                      setState(!state);
-                    }}
+                    {...form.getInputProps(`adv-${row.teamId}`)}
                   />
-                  {state && (
+                  {checked && (
                     <NumberInput
                       width={30}
                       variant="filled"
-                      onChange={(value) => {
-                        console.log('cambiar a ', value, row);
-                      }}
+                      {...form.getInputProps(`for-${row.teamId}`)}
                     />
                   )}
                 </Flex>

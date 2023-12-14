@@ -10,7 +10,7 @@ function ObjectList({ data = [], removeSelection }) {
           <li key={index}>
             {Object.entries(object).map(([key, value]) => (
               <span key={key}>
-                <strong> {key}: </strong> {value}
+                <strong> {key}: </strong> {value + ''}
               </span>
             ))}
             <CloseButton onClick={() => removeSelection(object.teamId)} />
